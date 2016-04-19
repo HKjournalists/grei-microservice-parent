@@ -1,0 +1,10 @@
+jar {
+	baseName = 'config-microservice'
+	version = '0.0.1-SNAPSHOT'
+}
+
+dependencies {
+	compile("org.springframework.cloud:spring-cloud-starter")
+	compile("org.springframework.cloud:spring-cloud-config-server")
+	compile("org.springframework.cloud:spring-cloud-starter-eureka")
+}

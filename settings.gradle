@@ -1,0 +1,2 @@
+rootProject.name = 'grei-microservice-parent'
+include 'discovery-microservice', "config-microservice", 'data-microservice', 'api-gateway-microservice'
