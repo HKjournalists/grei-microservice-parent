@@ -16,8 +16,8 @@ subprojects {
     apply plugin: "scala"
 
     repositories {
-        mavenCentral()
         jcenter()
+        mavenCentral()
         maven {
             url 'https://repo.spring.io/milestone'
         }
@@ -41,16 +41,6 @@ subprojects {
         testCompile("org.springframework.boot:spring-boot-starter-test")
     }
 
-    sourceSets {
-        main {
-            java {
-                srcDir 'src/main/java';
-            }
-            scala {
-                srcDir 'src/main/scala'
-            }
-        }
-    }
 
 }
 

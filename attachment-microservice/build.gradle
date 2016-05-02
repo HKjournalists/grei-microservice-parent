@@ -1,5 +1,5 @@
 jar {
-	baseName = 'data-microservice'
+	baseName = 'attachment-microservice'
 	version = '0.0.1-SNAPSHOT'
 }
 
@@ -9,5 +9,5 @@ dependencies {
 	compile('org.springframework.cloud:spring-cloud-starter-zuul')
 	compile('org.springframework.cloud:spring-cloud-starter-eureka')
 	compile('org.springframework.cloud:spring-cloud-starter-config')
-    compile('mysql:mysql-connector-java')
+	compile('mysql:mysql-connector-java')
 }

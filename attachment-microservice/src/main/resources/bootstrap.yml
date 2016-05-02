@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: attachment
+  cloud:
+    config:
+      uri: http://localhost:8888
+  profiles:
+    active: development
+encrypt:
+  failOnError: false
