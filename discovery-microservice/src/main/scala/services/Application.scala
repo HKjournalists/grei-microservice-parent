@@ -6,7 +6,7 @@ import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer
 
 /**
   * Application
-  * @author 刘佳兴
+  * Created by 刘佳兴 on 16-4-19.
   */
 
 object Application {

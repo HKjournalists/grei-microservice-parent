@@ -20,17 +20,17 @@ case class Project() extends Specification[Project] {
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name = "id")
   @BeanProperty
-  var id: java.lang.Long = null
+  var id: Long = _
 
   @Column(name = "projectname")
   @BeanProperty
-  var projectName: java.lang.String = null
+  var projectname: String = _
 
   @Override
   def toPredicate(root :Root[Project], query :CriteriaQuery[_], cb :CriteriaBuilder ) :Predicate = {
     val predicates = new ArrayBuffer[Predicate]
 
-    if(null != id) predicates += cb.equal(root.get("id"), this.id)
+    predicates += cb.equal(root.get("id"), this.id)
 
     query.where(predicates.toArray : _*).getRestriction
   }
