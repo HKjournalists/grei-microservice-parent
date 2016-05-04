@@ -1,9 +1,37 @@
 package data.web
 
+import java.io.{BufferedOutputStream, File, FileOutputStream}
+import javax.servlet.http.HttpServletResponse
+
+import org.springframework.core.io.FileSystemResource
+import org.springframework.util.FileCopyUtils
+import org.springframework.web.bind.annotation._
+import org.springframework.web.multipart.MultipartFile
+
 /**
+  * upload and manage file
+  *
   * @author 刘佳兴
   * @version V1.0
   */
+@RestController
+@RequestMapping(value = Array("/attachment"))
 class AttachmentController {
+
+  @RequestMapping(value = Array("/upload"), method = Array(RequestMethod.POST))
+  def upload(@RequestParam(name = "file") multipartFile: MultipartFile): String = {
+    if(!multipartFile.isEmpty) {
+      val stream = new BufferedOutputStream(new FileOutputStream(new File("/tmp/" + multipartFile.getOriginalFilename)))
+      FileCopyUtils.copy(multipartFile.getInputStream, stream)
+      stream.close()
+    }
+    multipartFile.getName
+  }
+
+  @RequestMapping(value = Array("/read/{name}"), method = Array(RequestMethod.GET))
+  def read(@PathVariable(value = "name") name: String, response: HttpServletResponse): Unit = {
+    val resource = new FileSystemResource("/tmp/" + name)
+    FileCopyUtils.copy(resource.getInputStream, response.getOutputStream)
+  }
 
 }

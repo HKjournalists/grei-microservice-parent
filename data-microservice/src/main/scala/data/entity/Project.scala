@@ -14,7 +14,7 @@ import scala.collection.mutable.ArrayBuffer
   */
 @Entity
 @Table(name = "project")
-case class Project() extends Specification[Project] {
+case class Project() {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
@@ -24,15 +24,10 @@ case class Project() extends Specification[Project] {
 
   @Column(name = "projectname")
   @BeanProperty
-  var projectname: String = _
+  var projectName: String = _
 
-  @Override
-  def toPredicate(root :Root[Project], query :CriteriaQuery[_], cb :CriteriaBuilder ) :Predicate = {
-    val predicates = new ArrayBuffer[Predicate]
-
-    predicates += cb.equal(root.get("id"), this.id)
-
-    query.where(predicates.toArray : _*).getRestriction
-  }
+  @Transient
+  @BeanProperty
+  var flag: Boolean = _
 
 }

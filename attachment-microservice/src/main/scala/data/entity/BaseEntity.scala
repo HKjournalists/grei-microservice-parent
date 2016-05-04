@@ -20,24 +20,24 @@ trait BaseEntity {
   @BeanProperty
   var id: Long = _
 
-  @Column(name = "createdby")
+  @Column(name = "createdby", nullable = false)
   @BeanProperty
   var createdBy: Long = _
 
-  @Column(name = "createdat")
+  @Column(name = "createdat", nullable = false)
   @BeanProperty
   var createdAt: Date = _
 
-  @Column(name = "updatedby")
+  @Column(name = "updatedby", nullable = false)
   @BeanProperty
   var updatedBy: Long = _
 
-  @Column(name = "updatedat")
+  @Column(name = "updatedat", nullable = false)
   @BeanProperty
   var updatedAt: Date = _
 
   //逻辑删除操作，子类需要添加: @where(clause="deleted=0")
-  @Column(name = "deleted")
+  @Column(name = "deleted", nullable = false)
   @BeanProperty
   var deleted: Boolean = _
 
