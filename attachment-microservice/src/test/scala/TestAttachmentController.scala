@@ -15,7 +15,7 @@ class TestAttachmentController {
   @Test
   def testUpload(): Unit = {
     val restTemplate = new RestTemplate()
-    val uri = new URI("http://localhost:9000/attachment/upload")
+    val uri = new URI("http://localhost:9000/upload")
     val resource = new FileSystemResource("/home/liujx/Pictures/Selection_003.png")
     val multiValueMap = new LinkedMultiValueMap[String, Object]()
     multiValueMap.add("file", resource)
@@ -26,7 +26,7 @@ class TestAttachmentController {
   @Test
   def testReadFile: Unit = {
     val restTemplate = new RestTemplate()
-    val uri = new URI("http://localhost:9000/attachment/read/Selection_003.png")
+    val uri = new URI("http://localhost:9000/read/Selection_003.png")
 
     val result = restTemplate.getForObject(uri, classOf[File])
     println(result)
