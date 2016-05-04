@@ -21,7 +21,7 @@ class LocalStorageService extends StorageService{
 
   override def write(file: MultipartFile): String = {
     val uuid = UUID.randomUUID().toString
-    val stream = new BufferedOutputStream(new FileOutputStream(new File(storagePath + uuid + file.getContentType)))
+    val stream = new BufferedOutputStream(new FileOutputStream(new File(storagePath + uuid)))
     FileCopyUtils.copy(file.getInputStream, stream)
     uuid
   }

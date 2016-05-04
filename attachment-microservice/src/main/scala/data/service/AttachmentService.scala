@@ -1,6 +1,7 @@
 package data.service
 
 import data.DTO.AttachmentData
+import data.entity.Attachment
 import org.springframework.web.multipart.MultipartFile
 
 /**
@@ -11,6 +12,6 @@ import org.springframework.web.multipart.MultipartFile
   */
 trait AttachmentService {
 
-  def save(multipartFile: MultipartFile): AttachmentData
+  def save(multipartFile: MultipartFile): Attachment
 
 }
