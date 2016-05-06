@@ -23,18 +23,32 @@ class AttachmentController {
   @Autowired
   var attachmentService: AttachmentService = _
 
+  /**
+    * upload file
+    *
+    * @param multipartFile multipartFile
+    * @param relativePath  business path
+    * @return
+    */
   @RequestMapping(value = Array("/upload"), method = Array(RequestMethod.POST))
-  def upload(@RequestParam(name = "file") multipartFile: MultipartFile) = {
+  def upload(@RequestParam(name = "file") multipartFile: MultipartFile, @RequestParam(name = "relativePath") relativePath: String) = {
     if(!multipartFile.isEmpty) {
-      ResponseEntity.ok(attachmentService.save(multipartFile))
+      ResponseEntity.ok(attachmentService.save(multipartFile, relativePath))
     } else {
       ResponseEntity.notFound()
     }
   }
 
-  @RequestMapping(value = Array("/read/{name}"), method = Array(RequestMethod.GET))
+  /**
+    * get file stream
+    *
+    * @param name uuid
+    * @param response response outputstream
+    * @return
+    */
+  @RequestMapping(value = Array("/{name}"), method = Array(RequestMethod.GET))
   def read(@PathVariable(value = "name") name: String, response: HttpServletResponse) = {
-    val resource = new FileSystemResource("/tmp/" + name)
+    val resource = new FileSystemResource(attachmentService.get(name))
     FileCopyUtils.copy(resource.getInputStream, response.getOutputStream)
     ResponseEntity.ok()
   }

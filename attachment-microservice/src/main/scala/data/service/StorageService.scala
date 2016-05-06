@@ -1,8 +1,8 @@
 package data.service
 
-import java.io.File
+import java.io.{File, InputStream}
 
-import org.springframework.web.multipart.MultipartFile
+import data.entity.Attachment
 
 /**
   * storage service
@@ -12,7 +12,7 @@ import org.springframework.web.multipart.MultipartFile
   */
 trait StorageService {
 
-  def write(multipartFile: MultipartFile) : String
+  def write(inputStream: InputStream, attachment: Attachment) : Unit
 
   def read(path: String): File
 

@@ -12,14 +12,10 @@ import scala.beans.BeanProperty
   */
 @Entity
 @Table(name = "attachment")
-class Attachment() extends BaseEntity {
-
-  def STORAGE_LOCAL = "local"
-  def STORAGE_ALI_OSS = "ali_oss"
-  def STORAGE_AMAZON_S3 = "amazon_s3"
+class Attachment extends BaseEntity {
 
   //UUID名称
-  @BeanProperty()
+  @BeanProperty
   var name: String = _
 
   //真实名称
@@ -35,13 +31,28 @@ class Attachment() extends BaseEntity {
   @BeanProperty
   var contentType: String = _
 
-  //存储方式
+  //文件大小
   @BeanProperty
-  var storage: String = _
+  var size: Long = _
 
-  //文件长度
+  //后缀名
   @BeanProperty
-  var length: Long = _
+  var suffix: String = _
 
+  def this(id: Long) {
+    this()
+    this.id = id
+  }
 
+  def this(name: String, realName: String, relativePath: String, contentType: String, size: Long, suffix: String) {
+    this()
+    this.name = name
+    this.realName = realName
+    this.relativePath = relativePath
+    this.contentType = contentType
+    this.suffix = suffix
+    this.size = size
+  }
+
+  override def toString = s"Attachment($name, $realName, $relativePath, $contentType, $size, $suffix)"
 }

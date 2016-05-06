@@ -19,6 +19,8 @@ class TestAttachmentController {
     val resource = new FileSystemResource("/home/liujx/Pictures/Selection_003.png")
     val multiValueMap = new LinkedMultiValueMap[String, Object]()
     multiValueMap.add("file", resource)
+    multiValueMap.add("relativePath", "/")
+
     val result = restTemplate.postForObject(uri, multiValueMap, classOf[String])
     Assert.assertNotNull(result)
   }
