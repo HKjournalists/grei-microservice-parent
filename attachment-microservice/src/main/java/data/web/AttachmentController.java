@@ -5,7 +5,6 @@ import data.entity.Attachment;
 import data.repository.AttachmentRepository;
 import data.service.AttachmentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.util.StringUtils;
@@ -29,7 +28,7 @@ public class AttachmentController {
     AttachmentRepository attachmentRepository;
 
     /**
-     * upload file
+     * 上传文件
      *
      * @param multipartFile multipartFile
      * @param relativePath  business path pattern(a.b.c.d...)
@@ -45,7 +44,7 @@ public class AttachmentController {
     }
 
     /**
-     * get attachment data
+     * 获取文件信息
      *
      * @param name uuid
      * @return ResponseEntity<AttachmentData>
@@ -56,6 +55,12 @@ public class AttachmentController {
         return ResponseEntity.ok(new AttachmentData(attachment.getName(), attachment.getUrl()));
     }
 
+    /**
+     * 获取文件信息
+     *
+     * @param name uuid
+     * @return 文件DTO（Data Transform Object）对象
+     */
     @RequestMapping(value = "/{name}", method = RequestMethod.DELETE)
     public ResponseEntity<AttachmentData> remove(@PathVariable(value = "name")String name) {
         Attachment attachment = attachmentService.remove(name);
@@ -63,7 +68,7 @@ public class AttachmentController {
     }
 
     /**
-     * get file stream
+     * 获取文件流
      *
      * @param name uuid
      * @param response response OutputStream
@@ -71,8 +76,7 @@ public class AttachmentController {
      */
     @RequestMapping(value = "/read/{name}", method = RequestMethod.GET)
     public ResponseEntity<String> read(@PathVariable(value = "name")String name, HttpServletResponse response) throws IOException {
-        FileSystemResource systemResource = new FileSystemResource(attachmentService.read(name));
-        FileCopyUtils.copy(systemResource.getInputStream(), response.getOutputStream());
+        FileCopyUtils.copy(attachmentService.read(name), response.getOutputStream());
         return ResponseEntity.ok("Success");
     }
 

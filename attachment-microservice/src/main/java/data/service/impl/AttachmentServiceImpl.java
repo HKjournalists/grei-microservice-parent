@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.UUID;
 
 /**
@@ -44,13 +44,14 @@ public class AttachmentServiceImpl implements AttachmentService {
     @Override
     public Attachment get(String name) {
         Attachment attachment = attachmentRepository.findOne(new QAttachment(name));
-        attachment.setUrl(localStorageService.serviceAddress() + name);
+        attachment.setUrl(localStorageService.endpoint() + name);
         return attachment;
     }
 
     @Override
-    public File read(String name) {
+    public InputStream read(String name) {
         Attachment attachment = attachmentRepository.findOne(new QAttachment(name));
-        return localStorageService.read(attachment.getRelativePath() + attachment.getName());
+        return localStorageService.read(attachment);
     }
+
 }

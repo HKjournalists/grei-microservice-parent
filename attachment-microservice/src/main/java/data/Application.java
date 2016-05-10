@@ -15,16 +15,12 @@ import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableZuulProxy
-public class Application extends WebMvcAutoConfiguration.WebMvcAutoConfigurationAdapter {
+public class Application {
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
 
-    @Override
-    public void configurePathMatch(PathMatchConfigurer configurer) {
-        configurer.setUseSuffixPatternMatch(false);
-        super.configurePathMatch(configurer);
-    }
+
 
 }

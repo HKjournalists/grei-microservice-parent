@@ -1,14 +1,13 @@
 package data.service;
 
-import com.amazonaws.services.ec2.model.Storage;
 import data.entity.Attachment;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 /**
- * 使用存储
+ * 文件信服务类
  *
  * @author 刘佳兴
  * @version V1.0
@@ -41,11 +40,11 @@ public interface AttachmentService {
     Attachment get(String name);
 
     /**
-     * get attachment file by name
+     * 读取文件
      *
      * @param name uuid
-     * @return File
+     * @return 读取文件流
      */
-    File read(String name);
+    InputStream read(String name);
 
 }
