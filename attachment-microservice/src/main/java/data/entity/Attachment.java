@@ -38,7 +38,7 @@ public class Attachment extends BaseEntity {
 
 
     @Transient
-    protected List<String> urls = new ArrayList<>();
+    protected String url;
 
     public Attachment() {
 

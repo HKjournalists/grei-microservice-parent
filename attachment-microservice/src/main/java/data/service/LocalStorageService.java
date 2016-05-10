@@ -1,4 +1,4 @@
-package data.service.impl;
+package data.service;
 
 import data.entity.Attachment;
 import data.service.StorageService;
@@ -17,14 +17,22 @@ public class LocalStorageService implements StorageService {
 
     @Value("${storage.local.path}")
     String storagePath;
+
     @Value("${storage.local.url}")
     String url;
 
     @Override
     public String write(InputStream inputStream, Attachment attachment) throws IOException {
-        OutputStream stream = new BufferedOutputStream(new FileOutputStream(new File(storagePath + File.separator + attachment.getRelativePath() + attachment.getName())));
+        File file = new File(storagePath + File.separator + attachment.getRelativePath() + attachment.getName());
+        file.getParentFile().mkdirs();
+        OutputStream stream = new BufferedOutputStream(new FileOutputStream(file));
         FileCopyUtils.copy(inputStream, stream);
         return url + attachment.getName();
+    }
+
+    @Override
+    public String serviceAddress() {
+        return url;
     }
 
     @Override

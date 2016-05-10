@@ -16,11 +16,11 @@ public class TestAttachmentController {
     @Test
     public void testUpload() throws URISyntaxException {
         RestTemplate restTemplate = new RestTemplate();
-        URI uri = new URI("http://localhost:9000/upload");
+        URI uri = new URI("http://localhost:9000/upload/user.image.a.b.c.d");
+
         FileSystemResource resource = new FileSystemResource("/home/liujx/Pictures/Selection_003.png");
         LinkedMultiValueMap<String, Object> multiValueMap = new LinkedMultiValueMap<>();
         multiValueMap.add("file", resource);
-        multiValueMap.add("relativePath", "/");
 
         String result = restTemplate.postForObject(uri, multiValueMap, String.class);
 

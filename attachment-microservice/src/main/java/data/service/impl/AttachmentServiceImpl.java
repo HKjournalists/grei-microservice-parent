@@ -29,13 +29,27 @@ public class AttachmentServiceImpl implements AttachmentService {
     public Attachment save(MultipartFile file, String relativePath) throws IOException {
         Attachment attachment = new Attachment(UUID.randomUUID().toString(), file.getOriginalFilename(), relativePath, file.getContentType(), file.getSize());
 
-        attachment.getUrls().add(localStorageService.write(file.getInputStream(), attachment));
+        attachment.setUrl(localStorageService.write(file.getInputStream(), attachment));
 
         return attachmentRepository.save(attachment);
     }
 
     @Override
-    public File get(String name) {
+    public Attachment remove(String name) {
+        Attachment attachment = attachmentRepository.findOne(new QAttachment(name));
+        attachment.setDeleted(true);
+        return attachmentRepository.save(attachment);
+    }
+
+    @Override
+    public Attachment get(String name) {
+        Attachment attachment = attachmentRepository.findOne(new QAttachment(name));
+        attachment.setUrl(localStorageService.serviceAddress() + name);
+        return attachment;
+    }
+
+    @Override
+    public File read(String name) {
         Attachment attachment = attachmentRepository.findOne(new QAttachment(name));
         return localStorageService.read(attachment.getRelativePath() + attachment.getName());
     }
