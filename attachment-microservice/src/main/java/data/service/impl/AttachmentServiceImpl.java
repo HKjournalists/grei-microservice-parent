@@ -5,31 +5,39 @@ import data.entity.query.QAttachment;
 import data.repository.AttachmentRepository;
 import data.service.AttachmentService;
 import data.service.StorageService;
+import jdk.internal.util.xml.impl.Input;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 /**
  * @author 刘佳兴
  * @version V1.0
  */
+@Slf4j
 @Service
 public class AttachmentServiceImpl implements AttachmentService {
 
     @Autowired
     AttachmentRepository attachmentRepository;
     @Autowired
-    StorageService localStorageService;
+    List<StorageService> storageServices;
 
     @Override
-    public Attachment save(MultipartFile file, String relativePath) throws IOException {
-        Attachment attachment = new Attachment(UUID.randomUUID().toString(), file.getOriginalFilename(), relativePath, file.getContentType(), file.getSize());
-
-        attachment.setUrl(localStorageService.write(file.getInputStream(), attachment));
+    public Attachment save(InputStream inputStream, Attachment attachment) {
+        storageServices.stream()
+                .filter(StorageService::enable)
+                .sorted((s1, s2) -> s1.priority() - s2.priority())
+                .forEach(storageService -> {
+                    attachment.setUrl(storageService.write(inputStream, attachment));
+                });
 
         return attachmentRepository.save(attachment);
     }
@@ -44,14 +52,29 @@ public class AttachmentServiceImpl implements AttachmentService {
     @Override
     public Attachment get(String name) {
         Attachment attachment = attachmentRepository.findOne(new QAttachment(name));
-        attachment.setUrl(localStorageService.endpoint() + name);
+        Optional<StorageService> optional = storageServices.stream()
+                .filter(StorageService::enable)
+                .max((s1, s2) -> (s1.priority() - s2.priority()));
+
+        if(!optional.isPresent()) throw new RuntimeException("Couldn't find highest priority target");
+
+        StorageService storageService = optional.get();
+        attachment.setUrl(storageService.endpoint() + attachment.getName());
+
         return attachment;
     }
 
     @Override
     public InputStream read(String name) {
         Attachment attachment = attachmentRepository.findOne(new QAttachment(name));
-        return localStorageService.read(attachment);
+
+        Optional<StorageService> optional = storageServices.stream()
+                .filter(StorageService::enable)
+                .max((s1, s2) -> (s1.priority() - s2.priority()));
+
+        if(!optional.isPresent()) throw new RuntimeException("Couldn't find highest priority target");
+
+        return optional.get().read(attachment);
     }
 
 }

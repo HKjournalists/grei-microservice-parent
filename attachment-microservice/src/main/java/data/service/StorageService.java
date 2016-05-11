@@ -15,6 +15,13 @@ import java.io.OutputStream;
  */
 public interface StorageService {
 
+    Integer priority();
+
+    /**
+     * 是否启用
+     *
+     * @return true or false
+     */
     Boolean enable();
 
     /**
@@ -44,7 +51,7 @@ public interface StorageService {
     /**
      * 根据文件信息读取文件流
      *
-     * @param attachment 文件相关信息
+     * @param attachment 附件信息
      * @return 读取文件流
      */
     InputStream read(Attachment attachment);

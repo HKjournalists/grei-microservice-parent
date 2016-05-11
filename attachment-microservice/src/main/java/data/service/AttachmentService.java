@@ -17,11 +17,11 @@ public interface AttachmentService {
     /**
      * save attachment and storage file
      *
-     * @param multipartFile MultipartFile
-     * @param relativePath  相对存储路径(根据业务自身定义)
+     * @param inputStream  文件上传流
+     * @param attachment   附件对象
      * @return Attachment
      */
-    Attachment save(MultipartFile multipartFile, String relativePath) throws IOException;
+    Attachment save(InputStream inputStream, Attachment attachment);
 
     /**
      * soft remove by name

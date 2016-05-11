@@ -36,7 +36,6 @@ public class Attachment extends BaseEntity {
     //文件大小
     protected  Long size;
 
-
     @Transient
     protected String url;
 

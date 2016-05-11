@@ -11,6 +11,7 @@ import com.amazonaws.services.s3.model.S3Object;
 import data.entity.Attachment;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.InputStream;
@@ -22,6 +23,7 @@ import java.io.InputStream;
  * @version V1.0
  */
 @Slf4j
+@Service
 public class AmazonS3Service implements StorageService{
 
     private AmazonS3 s3client = new AmazonS3Client(new ProfileCredentialsProvider());
@@ -30,11 +32,18 @@ public class AmazonS3Service implements StorageService{
     Boolean enable = false;
 
     @Value("${storage.amazonS3.bucket}")
-    String bucket;
+    String bucket = "";
 
     @Value("${storage.amazonS3.endpoint}")
-    String endpoint;
+    String endpoint = "";
 
+    @Value("${storage.local.priority}")
+    Integer priority = -1;
+
+    @Override
+    public Integer priority() {
+        return priority;
+    }
 
     @Override
     public Boolean enable() {
@@ -55,11 +64,17 @@ public class AmazonS3Service implements StorageService{
     public String write(InputStream inputStream, Attachment attachment) {
         log.info("Uploading a new object to S3 from a file\n");
         try {
-            s3client.putObject(new PutObjectRequest(bucket, key(attachment), inputStream, new ObjectMetadata()));
+            ObjectMetadata objectMetadata = new ObjectMetadata();
+            objectMetadata.setContentType(attachment.getContentType());
+
+            s3client.putObject(new PutObjectRequest(bucket, key(attachment), inputStream, objectMetadata));
         } catch (AmazonServiceException ase) {
             log.info("AmazonServiceException: {}", ase.getMessage());
+            throw new RuntimeException(ase.getMessage());
+
         } catch (AmazonClientException ace) {
             log.info("AmazonClientException: {}", ace.getMessage());
+            throw new RuntimeException(ace.getMessage());
         }
 
         return endpoint + key(attachment);

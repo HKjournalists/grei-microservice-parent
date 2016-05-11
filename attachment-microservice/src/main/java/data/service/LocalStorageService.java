@@ -16,13 +16,22 @@ import java.io.*;
 @Service
 public class LocalStorageService implements StorageService {
 
+    @Value("${storage.local.enable}")
+    Boolean enable = true;
+
     @Value("${storage.local.bucket}")
-    String bucket;
+    String bucket = "";
 
     @Value("${storage.local.endpoint}")
-    String endpoint;
+    String endpoint = "";
 
-    Boolean enable = true;
+    @Value("${storage.local.priority}")
+    Integer priority = -1;
+
+    @Override
+    public Integer priority() {
+        return priority;
+    }
 
     @Override
     public Boolean enable() {
@@ -33,7 +42,7 @@ public class LocalStorageService implements StorageService {
     public String write(InputStream inputStream, Attachment attachment) {
         log.info("Uploading a new object to local from a file\n");
         try {
-            File file = new File(key(attachment));
+            File file = new File(bucket + key(attachment));
             file.getParentFile().mkdirs();
             OutputStream stream = new BufferedOutputStream(new FileOutputStream(file));
             FileCopyUtils.copy(inputStream, stream);
@@ -52,7 +61,7 @@ public class LocalStorageService implements StorageService {
     public InputStream read(Attachment attachment) {
         InputStream inputStream = null;
         try {
-            inputStream = new BufferedInputStream(new FileInputStream(new File(key(attachment))));
+            inputStream = new BufferedInputStream(new FileInputStream(new File(bucket + key(attachment))));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -61,7 +70,7 @@ public class LocalStorageService implements StorageService {
 
     @Override
     public String key(Attachment attachment) {
-        return bucket + File.separator + attachment.getRelativePath() + attachment.getName();
+        return File.separator + attachment.getRelativePath() + File.separator +attachment.getName();
     }
 
 }

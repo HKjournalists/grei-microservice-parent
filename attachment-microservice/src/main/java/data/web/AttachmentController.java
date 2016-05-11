@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
+import java.util.UUID;
 
 /**
  * @author 刘佳兴
@@ -39,7 +40,10 @@ public class AttachmentController {
         if(multipartFile.isEmpty()) ResponseEntity.ok();
         if(!StringUtils.isEmpty(relativePath)) relativePath = relativePath.replaceAll("\\.", File.separator);
 
-        Attachment attachment = attachmentService.save(multipartFile, relativePath);
+        Attachment attachment = new Attachment(UUID.randomUUID().toString(), multipartFile.getOriginalFilename(),
+                relativePath, multipartFile.getContentType(), multipartFile.getSize());
+        attachment = attachmentService.save(multipartFile.getInputStream(), attachment);
+
         return ResponseEntity.ok(new AttachmentData(attachment.getName(), attachment.getUrl()));
     }
 

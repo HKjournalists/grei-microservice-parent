@@ -20,9 +20,6 @@ public class AttachmentConfiguration extends WebMvcAutoConfiguration.WebMvcAutoC
         super.configurePathMatch(configurer);
     }
 
-    
-
-
 
 
 }
