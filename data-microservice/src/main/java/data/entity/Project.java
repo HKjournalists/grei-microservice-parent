@@ -8,9 +8,9 @@ import javax.persistence.*;
  * @author 刘佳兴
  * @version V1.0
  */
+@Data
 @Entity
 @Table(name = "project")
-@Data
 public class Project {
 
     @Id

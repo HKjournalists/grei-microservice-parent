@@ -1,4 +1,4 @@
-package data.entity.query;
+package data.query;
 
 import data.entity.Attachment;
 import lombok.Data;
@@ -17,8 +17,8 @@ import java.util.List;
  * @author 刘佳兴
  * @version V1.0
  */
-@EqualsAndHashCode(callSuper = true)
 @Data
+@EqualsAndHashCode(callSuper = true)
 public class QAttachment extends Attachment implements Specification<Attachment> {
 
     public QAttachment(String name) {

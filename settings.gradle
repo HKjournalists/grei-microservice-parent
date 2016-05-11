@@ -3,4 +3,5 @@ include 'discovery-microservice',
         'config-microservice',
         'data-microservice',
         'attachment-microservice',
+        'i3-microservice',
         'api-gateway-microservice'

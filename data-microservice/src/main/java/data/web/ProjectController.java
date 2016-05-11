@@ -1,7 +1,7 @@
 package data.web;
 
 import data.entity.Project;
-import data.entity.query.QProject;
+import data.query.QProject;
 import data.repository.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

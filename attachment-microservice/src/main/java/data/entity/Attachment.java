@@ -14,10 +14,10 @@ import java.util.List;
  * @author 刘佳兴
  * @version V1.0
  */
+@Data
 @Entity
 @Table(name = "attachment")
 @EqualsAndHashCode(callSuper = true)
-@Data
 public class Attachment extends BaseEntity {
 
     //UUID名称

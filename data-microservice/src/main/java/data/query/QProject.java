@@ -1,4 +1,4 @@
-package data.entity.query;
+package data.query;
 
 import data.entity.Project;
 import org.springframework.data.jpa.domain.Specification;

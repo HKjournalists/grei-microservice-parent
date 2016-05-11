@@ -10,8 +10,8 @@ import java.util.Date;
  * @author 刘佳兴
  * @version V1.0
  */
-@MappedSuperclass
 @Data
+@MappedSuperclass
 public abstract class BaseEntity {
 
     @Id
