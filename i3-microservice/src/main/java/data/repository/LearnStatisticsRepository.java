@@ -1,7 +1,7 @@
 package data.repository;
 
 
-import data.entity.I3LearnStatistics;
+import data.entity.LearnStatistics;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
@@ -11,6 +11,6 @@ import org.springframework.stereotype.Repository;
  * Created by 刘佳兴 on 16-3-25.
  */
 @Repository
-public interface I3LearnStatisticsRepository extends JpaRepository<I3LearnStatistics, Long>, JpaSpecificationExecutor<I3LearnStatistics> {
+public interface LearnStatisticsRepository extends JpaRepository<LearnStatistics, Long>, JpaSpecificationExecutor<LearnStatistics> {
 
 }

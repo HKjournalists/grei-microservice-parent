@@ -1,7 +1,5 @@
 package data.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -9,13 +7,15 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
+ * 课程实体类
+ *
  * @author 刘佳兴
- * @version V1.0
+ * @see java.io.Serializable
  */
 @Data
 @Entity
 @Table(name = "i3_course")
-public class I3Course implements Serializable {
+public class Course implements Serializable {
 
 	@Id
 	@Column(name = "id")
@@ -44,7 +44,7 @@ public class I3Course implements Serializable {
 	protected String difficulty;
 
 	@Column(name = "posted")
-	protected Integer posted;
+	protected Boolean posted;
 
 	@Column(name = "length")
 	protected Integer length;

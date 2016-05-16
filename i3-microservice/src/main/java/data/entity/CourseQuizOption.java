@@ -6,12 +6,11 @@ import javax.persistence.*;
 
 /**
  * @author 刘佳兴
- * @version V1.0
  */
 @Data
 @Entity
 @Table(name = "i3_course_quiz_option")
-public class I3CourseQuizOption {
+public class CourseQuizOption {
 
     @Id
     @Column(name = "id")

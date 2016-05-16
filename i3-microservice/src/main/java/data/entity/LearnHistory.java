@@ -7,12 +7,12 @@ import java.util.Date;
 
 /**
  * @author 刘佳兴
- * @version V1.0
  */
 @Data
 @Entity
 @Table(name = "i3_learn_history")
-public class I3LearnHistory {
+public class LearnHistory {
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)

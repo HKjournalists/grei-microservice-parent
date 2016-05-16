@@ -7,32 +7,31 @@ import java.util.Date;
 
 /**
  * @author 刘佳兴
- * @version V1.0
  */
 @Data
 @Entity
-@Table(name = "i3_search_history")
-public class I3SearchHistory {
+@Table(name = "i3_learn_statistics")
+public class LearnStatistics {
 
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    protected Long id;
 
     @Basic
     @Column(name = "customerid")
-    private long customerid;
+    protected Long customerid;
 
     @Basic
-    @Column(name = "key")
-    private String key;
+    @Column(name = "lessons")
+    protected Integer lessons;
 
     @Basic
-    @Column(name = "datasourceid")
-    private Long datasourceid;
+    @Column(name = "level")
+    protected Integer level;
 
     @Basic
     @Column(name = "updateddtm")
-    private Date updateddtm;
+    protected Date updateddtm;
 
 }

@@ -10,12 +10,11 @@ import java.util.Set;
 
 /**
  * @author 刘佳兴
- * @version V1.0
  */
 @Data
 @Entity
 @Table(name = "i3_course_lesson")
-public class I3CourseLesson implements Serializable {
+public class CourseLesson implements Serializable {
 
     @Id
     @Column(name = "id")

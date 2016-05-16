@@ -7,12 +7,11 @@ import java.util.Date;
 
 /**
  * @author 刘佳兴
- * @version V1.0
  */
 @Data
 @Entity
 @Table(name = "i3_course_quiz_answer")
-public class I3CourseQuizAnswer {
+public class CourseQuizAnswer {
 
 	@Id
 	@Column(name = "id")

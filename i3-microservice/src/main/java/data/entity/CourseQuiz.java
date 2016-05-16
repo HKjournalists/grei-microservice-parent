@@ -1,14 +1,17 @@
 package data.entity;
 
+import lombok.Data;
+
 import javax.persistence.*;
 
 /**
  * @author 刘佳兴
- * @version V1.0
+
  */
+@Data
 @Entity
 @Table(name = "i3_course_quiz")
-public class I3CourseQuiz {
+public class CourseQuiz {
 
     @Id
     @Column(name = "id")

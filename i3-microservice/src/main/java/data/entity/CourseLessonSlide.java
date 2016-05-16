@@ -7,28 +7,27 @@ import java.util.Date;
 
 /**
  * @author 刘佳兴
- * @version V1.0
  */
 @Data
 @Entity
 @Table(name = "i3_course_lesson_slide")
-public class I3CourseLessonSlide {
+public class CourseLessonSlide {
 
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    protected Long id;
 
     @Column(name = "courseid", nullable = false)
-    private Long courseid;
+    protected Long courseid;
 
     @Column(name = "lessonid", nullable = false)
-    private Long lessonid;
+    protected Long lessonid;
 
     @Column(name = "url", nullable = false, length = 255)
-    private String url;
+    protected String url;
 
     @Column(name = "createddtm", nullable = false)
-    private Date createddtm;
+    protected Date createddtm;
 
 }
