@@ -9,7 +9,6 @@ import java.net.URISyntaxException;
 
 /**
  * @author 刘佳兴
- * @version V1.0
  */
 public class TestAttachmentController {
 

@@ -20,7 +20,6 @@ import java.io.InputStream;
  * Amazon s3 cloud storage service
  *
  * @author 刘佳兴
- * @version V1.0
  */
 @Slf4j
 @Service

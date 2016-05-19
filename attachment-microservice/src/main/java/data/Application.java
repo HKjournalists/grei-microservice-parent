@@ -10,7 +10,6 @@ import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 
 /**
  * @author 刘佳兴
- * @version V1.0
  */
 @SpringBootApplication
 @EnableDiscoveryClient

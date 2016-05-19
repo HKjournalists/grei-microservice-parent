@@ -8,7 +8,6 @@ import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
  * 配置文件初始化服务
  *
  * @author 刘佳兴
- * @version V1.0
  */
 @Configuration
 public class AttachmentConfiguration extends WebMvcAutoConfiguration.WebMvcAutoConfigurationAdapter {

@@ -8,7 +8,6 @@ import java.util.Date;
 
 /**
  * @author 刘佳兴
- * @version V1.0
  */
 @Data
 @MappedSuperclass

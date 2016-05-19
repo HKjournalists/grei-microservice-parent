@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 
 /**
  * @author 刘佳兴
- * @version V1.0
  */
 @Repository
 public interface AttachmentRepository extends JpaRepository<Attachment, Long>, JpaSpecificationExecutor<Attachment> {

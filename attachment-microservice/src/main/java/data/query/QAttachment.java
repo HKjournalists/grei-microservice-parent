@@ -15,7 +15,6 @@ import java.util.List;
 
 /**
  * @author 刘佳兴
- * @version V1.0
  */
 @Data
 @EqualsAndHashCode(callSuper = true)

@@ -19,7 +19,6 @@ import java.util.UUID;
 
 /**
  * @author 刘佳兴
- * @version V1.0
  */
 @RestController
 public class AttachmentController {

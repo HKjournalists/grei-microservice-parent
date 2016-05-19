@@ -10,7 +10,6 @@ import java.io.InputStream;
  * 文件信服务类
  *
  * @author 刘佳兴
- * @version V1.0
  */
 public interface AttachmentService {
 
