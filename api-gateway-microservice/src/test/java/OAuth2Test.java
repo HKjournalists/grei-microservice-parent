@@ -84,7 +84,7 @@ public class OAuth2Test {
         builder.queryParam("username", "admin");
         builder.queryParam("password", "GREI@2016");
         builder.queryParam("grant_type", "refresh_token");
-        builder.queryParam("refresh_token", "c564e115-1cbe-452f-8cd3-0646ead2a885");
+        builder.queryParam("refresh_token", "59b2d81b-d00d-4b0e-9264-fb7b8821f11a");
         builder.queryParam("scope", "read write");
         builder.queryParam("client_id", "clientapp");
         builder.queryParam("client_secret", "123456");
