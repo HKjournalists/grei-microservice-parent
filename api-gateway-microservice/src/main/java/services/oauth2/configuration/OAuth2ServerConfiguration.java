@@ -39,7 +39,7 @@ public class OAuth2ServerConfiguration {
         }
 
         /**
-         * 配置资源访问权限
+         * 配置资源访问权限,除了获取token之外的链接，都需要经过校验，暂时没做详细的权限划分。
          *
          * @param http
          * @throws Exception
@@ -78,13 +78,14 @@ public class OAuth2ServerConfiguration {
             return DataSourceBuilder.create().build();
         }
 
+        //配置客户端，后续可扩展通过数据库管理
         @Override
         public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
             clients.inMemory()
                     .withClient("clientapp")
                     .authorizedGrantTypes("password", "refresh_token")
                     .scopes("read", "write")
-                    .accessTokenValiditySeconds(2)
+//                    .accessTokenValiditySeconds(2)  //配置token的时间
                     .secret("123456");
             super.configure(clients);
         }
