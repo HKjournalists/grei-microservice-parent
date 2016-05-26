@@ -18,7 +18,7 @@ public class UserService {
 
     public void existLoginName(String loginName) {
         QUser qUser = new QUser();
-        qUser.equalLoginName = loginName;
+        qUser.setEqualLoginName(loginName);
         if(null != userRepository.findOne(qUser)) throw new RuntimeException("登录名已存在!");
     }
 

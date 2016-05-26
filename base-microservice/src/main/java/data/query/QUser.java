@@ -1,6 +1,8 @@
 package data.query;
 
 import data.entity.User;
+import lombok.Data;
+import lombok.Setter;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.util.StringUtils;
 
@@ -17,7 +19,8 @@ import java.util.List;
  */
 public class QUser extends User implements Specification<User> {
 
-    public String equalLoginName;
+    @Setter
+    private String equalLoginName;
 
     @Override
     public Predicate toPredicate(Root<User> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder cb) {
