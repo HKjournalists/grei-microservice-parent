@@ -25,6 +25,8 @@ public class QDictionary extends Dictionary implements Specification<Dictionary>
         if(!StringUtils.isEmpty(this.code)) predicates.add(cb.like(root.get("code"), "%"+this.code+"%"));
         if(!StringUtils.isEmpty(this.name)) predicates.add(cb.like(root.get("name"), "%"+this.name+"%"));
 
+        criteriaQuery.orderBy(cb.desc(root.get("updateTime")));
+
         Predicate[] pre = new Predicate[predicates.size()];
         return criteriaQuery.where(predicates.toArray(pre)).getRestriction();
     }

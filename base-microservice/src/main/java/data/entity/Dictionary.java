@@ -49,4 +49,15 @@ public class Dictionary {
     @Transient
     List<DictionaryItem> dictionaryItems = new ArrayList<>();
 
+    @PrePersist
+    public void created() {
+        this.createTime = new Timestamp(new Date().getTime());
+        this.updateTime = createTime;
+    }
+
+    @PreUpdate
+    public void updated() {
+        this.updateTime = new Timestamp(new Date().getTime());
+    }
+
 }

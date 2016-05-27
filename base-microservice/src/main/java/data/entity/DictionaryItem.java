@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  *
@@ -51,5 +52,17 @@ public class DictionaryItem {
 
     @Column(name = "updateby")
     protected Long updateBy;
+
+    @PrePersist
+    public void created() {
+        this.createTime = new Timestamp(new Date().getTime());
+        this.updateTime = createTime;
+    }
+
+    @PreUpdate
+    public void updated() {
+        this.updateTime = new Timestamp(new Date().getTime());
+        if(null == this.createTime) this.createTime = this.updateTime;
+    }
 
 }

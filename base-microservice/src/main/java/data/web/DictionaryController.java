@@ -54,7 +54,7 @@ public class DictionaryController {
 
     @RequestMapping(value = "/dictionaries/{id}", method = RequestMethod.DELETE)
     void deleteDictionary(@PathVariable Long id) {
-        dictionaryRepository.delete(id);
+        dictionaryService.delete(id);
     }
 
     @RequestMapping(value = "/dictionaries", method = RequestMethod.GET)
