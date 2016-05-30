@@ -1,11 +1,8 @@
 package data.web;
 
-import data.entity.Customer;
 import data.entity.Dictionary;
 import data.entity.DictionaryItem;
-import data.entity.User;
 import data.helper.NullHelper;
-import data.query.QCustomer;
 import data.query.QDictionary;
 import data.query.QDictionaryItem;
 import data.repository.DictionaryItemRepository;
@@ -17,6 +14,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -36,7 +34,7 @@ public class DictionaryController {
     DictionaryService dictionaryService;
 
     @RequestMapping(value = "/dictionaries", method = RequestMethod.POST)
-    Dictionary create(@RequestBody Dictionary dictionary) {
+    Dictionary create(@Valid @RequestBody Dictionary dictionary) {
         return dictionaryService.saveOrUpdate(dictionary);
     }
 

@@ -1,6 +1,7 @@
 package data.web;
 
 import data.entity.User;
+import data.exception.APIException;
 import data.helper.NullHelper;
 import data.helper.ToolSecurityPbkdf2;
 import data.query.QUser;
@@ -34,14 +35,16 @@ public class UserController {
      */
     @RequestMapping(value = "/users", method = RequestMethod.POST)
     User create(@RequestBody User user) {
-        if(null != user.getId()) throw new RuntimeException("用户已存在!");
-        userService.existLoginName(user.getLoginName());
+        if(null != user.getId()) throw new APIException("request.data.valid.exists", new String[]{"User"});
+        QUser qUser = new QUser();
+        qUser.setEqualLoginName(user.getLoginName());
+        if(null != userRepository.findOne(qUser)) throw new APIException("request.data.valid.exists", new String[]{"User's Login Name"});
 
         try {
             user.setSalt(ToolSecurityPbkdf2.generateSalt());
             user.setPassword(ToolSecurityPbkdf2.getEncryptedPassword("888888", user.getSalt()));
         } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
-            throw new RuntimeException("初始化密码有误!");
+            throw new APIException("base.user.password.initialization");
         }
 
         user.setCreateTime(new Date());
