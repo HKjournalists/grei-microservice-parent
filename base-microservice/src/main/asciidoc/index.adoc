@@ -1,0 +1,70 @@
+= 基础服务（Base Service）接口文档
+Jiaxing Liu <liujiaxingemail@gmail.com>;
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 4
+:toc-title: Base Service API
+:sectlinks:
+
+[introduction]
+= 介绍
+
+base-service 微服务
+
+[[overview]]
+= 概要
+
+[[overview-http-verbs]]
+== 接口使用到的 HTTP/1.1 请求方法
+|===
+| 方法 | 用途
+
+| `GET`
+| 向指定的资源发出“显示”请求。使用GET方法应该只用在读取数据，而不应当被用于产生“副作用”的操作中。
+
+| `POST`
+| 向指定资源提交数据，请求服务器进行处理（例如提交表单或者上传文件）。数据被包含在请求本文中。这个请求可能会创建新的资源或修改现有资源。
+
+| `PUT`
+| 向指定资源位置上传其最新内容。
+
+| `DELETE`
+| 请求服务器删除Request-URI所标识的资源。
+|===
+
+[[overview-http-status-codes]]
+== HTTP 状态码
+
+|===
+| 状态码 | 用途
+
+| `200 OK`
+| 请求已成功，请求所希望的响应头或数据体将随此响应返回。
+
+| `201 Created`
+| 请求已经被实现，而且有一个新的资源已经依据请求的需要而创建。
+
+| `204 No Content`
+| 服务器成功处理了请求，但不需要返回任何实体内容，并且希望返回更新了的元信息。
+
+| `400 Bad Request`
+| 由于包含语法错误，当前请求无法被服务器理解。除非进行修改，否则客户端不应该重复提交这个请求。
+
+| `404 Not Found`
+| 请求失败，请求所希望得到的资源未被在服务器上发现。没有信息能够告诉用户这个状况到底是暂时的还是永久的。
+
+| `405 Method Not Allowed`
+| 请求行中指定的请求方法不能被用于请求相应的资源。该响应必须返回一个Allow头信息用以表示出当前资源能够接受的请求方法的列表。
+
+|===
+
+[[resources]]
+= API
+
+== 数据库字典
+
+=== 获取字典列表
+include::{snippets}/dictionary/http-request.adoc[]
+include::{snippets}/dictionary/http-response.adoc[]

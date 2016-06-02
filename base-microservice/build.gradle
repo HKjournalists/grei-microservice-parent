@@ -1,12 +1,32 @@
-jar {
-	baseName = 'base-microservice'
-	version = '0.0.1-SNAPSHOT'
-}
-
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
 	compile('org.springframework.cloud:spring-cloud-starter-zuul')
 	compile('org.springframework.cloud:spring-cloud-starter-eureka')
 	compile('org.springframework.cloud:spring-cloud-starter-config')
 	compile('mysql:mysql-connector-java')
+}
+
+ext {
+	snippetsDir = file('build/generated-snippets')
+}
+
+test {
+	outputs.dir snippetsDir
+}
+
+asciidoctor {
+	attributes 'snippets': snippetsDir
+	inputs.dir snippetsDir
+	outputDir "build/asciidoc"
+	dependsOn test
+	sourceDir 'src/main/asciidoc'
+}
+
+jar {
+	baseName = 'base-microservice'
+	version = '0.0.1-SNAPSHOT'
+	dependsOn asciidoctor
+	from ("${asciidoctor.outputDir}/html5") {
+		into 'static/docs'
+	}
 }
