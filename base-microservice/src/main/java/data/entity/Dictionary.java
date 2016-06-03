@@ -1,5 +1,6 @@
 package data.entity;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -46,6 +47,7 @@ public class Dictionary {
     @Column(name = "updateby")
     protected Long updateBy;
 
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @Transient
     List<DictionaryItem> dictionaryItems = new ArrayList<>();
 

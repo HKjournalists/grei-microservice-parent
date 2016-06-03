@@ -60,11 +60,32 @@ base-service 微服务
 
 |===
 
+[[common]]
+= 通用
+
+== 公用请求参数
+|===
+|参数 | 类型 |用途
+
+|lang| URL | 国际化参数（例如：zh_CN,en_US等）
+
+|===
+
 [[resources]]
 = API
 
 == 数据库字典
 
-=== 获取字典列表
-include::{snippets}/dictionary/http-request.adoc[]
-include::{snippets}/dictionary/http-response.adoc[]
+=== 获取列表
+
+==== 请求参数
+include::{snippets}/test-page-of-dictionary/request-parameters.adoc[]
+
+==== 请求
+include::{snippets}/test-page-of-dictionary/http-request.adoc[]
+
+==== 响应参数
+include::{snippets}/test-page-of-dictionary/response-fields.adoc[]
+
+==== 响应列表
+include::{snippets}/test-page-of-dictionary/http-response.adoc[]
