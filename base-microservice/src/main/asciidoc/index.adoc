@@ -1,12 +1,20 @@
 = 基础服务（Base Service）接口文档
 Jiaxing Liu <liujiaxingemail@gmail.com>;
 :doctype: book
+:compat-mode!:
+:page-layout!:
 :icons: font
 :source-highlighter: highlightjs
 :toc: left
-:toclevels: 4
-:toc-title: Base Service API
+:toclevels: 2
+:toc-title: 接口文档
+:sectanchors:
 :sectlinks:
+:sectnums:
+:linkattrs:
+:icons: font
+:source-highlighter: coderay
+:source-language: asciidoc
 
 [introduction]
 = 介绍
