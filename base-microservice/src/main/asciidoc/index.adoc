@@ -6,7 +6,7 @@ Jiaxing Liu <liujiaxingemail@gmail.com>;
 :icons: font
 :source-highlighter: highlightjs
 :toc: left
-:toclevels: 2
+:toclevels: 3
 :toc-title: 接口文档
 :sectanchors:
 :sectlinks:
