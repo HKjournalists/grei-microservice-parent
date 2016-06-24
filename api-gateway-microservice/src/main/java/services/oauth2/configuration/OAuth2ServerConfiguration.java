@@ -8,19 +8,28 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.oauth2.client.DefaultOAuth2ClientContext;
+import org.springframework.security.oauth2.client.OAuth2RestOperations;
+import org.springframework.security.oauth2.client.OAuth2RestTemplate;
+import org.springframework.security.oauth2.client.token.AccessTokenProviderChain;
+import org.springframework.security.oauth2.client.token.JdbcClientTokenServices;
+import org.springframework.security.oauth2.client.token.grant.code.AuthorizationCodeAccessTokenProvider;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
+import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 import services.oauth2.service.AdminUserDetailsService;
 
 import javax.sql.DataSource;
+import java.util.Arrays;
 
 /**
  * oauth2 授权服务和资源服务配置
@@ -46,7 +55,11 @@ public class OAuth2ServerConfiguration {
          */
         @Override
         public void configure(HttpSecurity http) throws Exception {
-            http.authorizeRequests().antMatchers("/**").authenticated();
+            http.authorizeRequests()
+                    .antMatchers("/i3/**").access("#oauth2.hasScope('xxxxxx')")
+                    .antMatchers("/**").authenticated();
+
+
             super.configure(http);
         }
 
@@ -72,27 +85,31 @@ public class OAuth2ServerConfiguration {
             super.configure(endpoints);
         }
 
+        @Override
+        public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+            clients.withClientDetails(this.jdbcClientDetailsService());
+            super.configure(clients);
+        }
+
         @Bean
         @ConfigurationProperties(prefix = "spring.datasource")
         public DataSource dataSource() {
             return DataSourceBuilder.create().build();
         }
 
-        //配置客户端，后续可扩展通过数据库管理
-        @Override
-        public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-            clients.inMemory()
-                    .withClient("clientapp")
-                    .authorizedGrantTypes("password", "refresh_token")
-                    .scopes("read", "write")
-//                    .accessTokenValiditySeconds(2)  //配置token的时间
-                    .secret("123456");
-            super.configure(clients);
-        }
-
         @Bean
         public TokenStore tokenStore() {
             return new JdbcTokenStore(dataSource());
+        }
+
+        @Bean
+        public JdbcClientDetailsService jdbcClientDetailsService() {
+            return new JdbcClientDetailsService(dataSource());
+        }
+
+        @Bean
+        public JdbcClientTokenServices jdbcClientTokenServices() {
+            return new JdbcClientTokenServices(dataSource());
         }
 
         @Primary

@@ -35,7 +35,7 @@ public class OAuth2Test {
         builder.queryParam("username", username);
         builder.queryParam("password", password);
         builder.queryParam("grant_type", "password");
-        builder.queryParam("scope", "read write");
+        builder.queryParam("scope", "read write xxxxxx");
         builder.queryParam("client_id", "clientapp");
         builder.queryParam("client_secret", "123456");
 
@@ -57,10 +57,10 @@ public class OAuth2Test {
     public void i3Courses() {
 
         HttpHeaders headers = new HttpHeaders();
-        headers.set("Authorization", "Bearer " + "084efb5b-ce0b-4120-ae57-62397ea983e6");
+        headers.set("Authorization", "Bearer " + "45647dfa-6865-44e0-80d8-766c65ebf3bb");
 
         UriComponentsBuilder builder = UriComponentsBuilder.fromUri(URI.create("http://localhost:10000/i3/courses"));
-        builder.queryParam("token", "084efb5b-ce0b-4120-ae57-62397ea983e6");
+//        builder.queryParam("token", "084efb5b-ce0b-4120-ae57-62397ea983e6");
 
         RestTemplate restTemplate = new RestTemplate();
 
